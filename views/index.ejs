@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitoring</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>System Usage Monitor</h1>
+    </header>
+
+    <main>
+        <div class="metric">
+            <h2>CPU Usage</h2>
+            <ul id="cpuUsage"></ul>
+        </div>
+
+        <div class="metric">
+            <h2>Disk Usage</h2>
+            <ul id="diskUsage"></ul>
+        </div>
+
+        <div class="metric">
+            <h2>Memory Usage</h2>
+            <ul id="memoryUsage"></ul>
+        </div>
+
+        <div class="metric">
+            <h2>Network Usage</h2>
+            <ul id="networkUsage"></ul>
+        </div>
+    </main>
+
+    <footer>
+        <a class="github-logo" href="https://github.com/SlmnFz/Monitoring-System-nodejs-eventstore" target="_blank">
+            <img src="/img/github.png" class="github-logo-image">
+            GitHub Repo
+        </a>
+        <p>&copy; 2024 Monitoring System</p>
+    </footer>
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+
+</html>
