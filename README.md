@@ -8,7 +8,7 @@ To run the monitoring system locally, follow these steps:
 
 1.  Clone this repository to your local machine:
 ```bash
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/SlmnFz/Monitoring-System-nodejs-eventstore.git)
 ```
 
 2.  Navigate to the project directory:
@@ -42,7 +42,7 @@ Once the monitoring system is running, you can access it through the web interfa
 # API Documentation
 
 Explore the API endpoints and their descriptions using the Swagger documentation:
-[API Documentation](/api-docs)
+[API Documentation](http://localhost:3000/api-docs/)
 
 # Technologies Used
 
