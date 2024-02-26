@@ -41,21 +41,21 @@ Once the monitoring system is running, you can access it through the web interfa
 
 # Technologies Used
 
-    . Express.js: A web application framework for Node.js used for building the backend server.
-    . EventStore: A database for managing and storing event streams, used for storing system metrics data.
-    . Socket.io: A library that enables real-time, bidirectional communication between web clients and servers using WebSockets.
-    . os-utils: A Node.js library for getting CPU and memory usage information.
-    . check-disk-space: A Node.js library for getting disk usage information.
+- Express.js: A web application framework for Node.js used for building the backend server.
+- EventStore: A database for managing and storing event streams, used for storing system metrics data.
+- Socket.io: A library that enables real-time, bidirectional communication between web clients and servers using WebSockets.
+- os-utils: A Node.js library for getting CPU and memory usage information.
+- check-disk-space: A Node.js library for getting disk usage information.
 
 # Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
-    1. Fork the repository.
-    2. Create your feature branch: git checkout -b feature-name.
-    3. Commit your changes: git commit -am 'Add some feature'.
-    4. Push to the branch: git push origin feature-name.
-    5. Submit a pull request.
+1. Fork the repository.
+2. Create your feature branch: git checkout -b feature-name.
+3. Commit your changes: git commit -am 'Add some feature'.
+4. Push to the branch: git push origin feature-name.
+5. Submit a pull request.
 
 # License
 
