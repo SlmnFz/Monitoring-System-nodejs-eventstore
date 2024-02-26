@@ -39,6 +39,11 @@ npm start
 
 Once the monitoring system is running, you can access it through the web interface. The system collects various system metrics such as CPU usage, memory usage, disk usage, and network activity in real-time. These metrics are stored in EventStore for analysis and monitoring purposes.
 
+# API Documentation
+
+Explore the API endpoints and their descriptions using the Swagger documentation:
+[API Documentation](/api-docs)
+
 # Technologies Used
 
 - Express.js: A web application framework for Node.js used for building the backend server.
