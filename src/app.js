@@ -6,6 +6,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const port = process.env.PORT || 3000;
 const { client, connectToEventStore, disconnectFromEventStore } = require('../src/helpers/eventStore');
+const { specs, swaggerUi } = require('./docs/swagger');
 
 const server = http.createServer(app)
 const io = socketIo(server)
@@ -14,7 +15,7 @@ const io = socketIo(server)
 const usage = require('./routes/usage');
 
 app.use("/usage", usage)
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.get('/', async (req, res) => {
     await connectToEventStore();
     res.send('Monitoring System is up and running!');
