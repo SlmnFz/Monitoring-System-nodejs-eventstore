@@ -74,14 +74,20 @@ async function getAllSystemUsage(req, res) {
 
 async function getCPUUsage(req, res) {
     try {
-        const cpuEvents = await client.readStream("cpu-usage-stream", {
+        const cpu = []
+
+        // Collect system usage data
+        const cpuEvents = client.readStream("cpu-usage-stream", {
             direction: FORWARDS,
             fromRevision: START,
             maxCount: 50,
         })
+        for await (const resolvedEvent of cpuEvents) {
+            cpu.push(resolvedEvent.event?.data)
+        }
 
         res.status(200).json({
-            message: 'CPU Usage', cpuEvents
+            message: 'CPU Usage', cpu
         })
     } catch (error) {
         console.error('Error collecting system usage data:', error);
@@ -91,14 +97,18 @@ async function getCPUUsage(req, res) {
 
 async function getMemoryUsage(req, res) {
     try {
+        const memory = []
         const memoryEvents = await client.readStream("memory-usage-stream", {
             direction: FORWARDS,
             fromRevision: START,
             maxCount: 50,
         })
+        for await (const resolvedEvent of memoryEvents) {
+            memory.push(resolvedEvent.event?.data)
+        }
 
         res.status(200).json({
-            message: 'Memory Usage', memoryEvents
+            message: 'Memory Usage', memory
         })
     } catch (error) {
         console.error('Error collecting system usage data:', error);
@@ -106,16 +116,20 @@ async function getMemoryUsage(req, res) {
     }
 }
 
-async function getDisksage(req, res) {
+async function getDiskUsage(req, res) {
     try {
+        const disk = []
         const diskEvents = await client.readStream("disk-usage-stream", {
             direction: FORWARDS,
             fromRevision: START,
             maxCount: 50,
         })
+        for await (const resolvedEvent of diskEvents) {
+            disk.push(resolvedEvent.event?.data)
+        }
 
         res.status(200).json({
-            message: 'Disk Usage', diskEvents
+            message: 'Disk Usage', disk
         })
     } catch (error) {
         console.error('Error collecting system usage data:', error);
@@ -125,14 +139,18 @@ async function getDisksage(req, res) {
 
 async function getNetworkUsage(req, res) {
     try {
+        const network = []
         const networkEvents = await client.readStream("network-usage-stream", {
             direction: FORWARDS,
             fromRevision: START,
             maxCount: 50,
         })
+        for await (const resolvedEvent of networkEvents) {
+            network.push(resolvedEvent.event?.data)
+        }
 
         res.status(200).json({
-            message: 'Network Usage', networkEvents
+            message: 'Network Usage', network
         })
     } catch (error) {
         console.error('Error collecting system usage data:', error);
@@ -140,4 +158,4 @@ async function getNetworkUsage(req, res) {
     }
 }
 
-module.exports = { storeSystemUsage, getAllSystemUsage, getCPUUsage, getDisksage, getMemoryUsage, getNetworkUsage }
+module.exports = { storeSystemUsage, getAllSystemUsage, getCPUUsage, getDiskUsage, getMemoryUsage, getNetworkUsage }
