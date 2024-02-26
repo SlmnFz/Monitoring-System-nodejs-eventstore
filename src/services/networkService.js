@@ -16,12 +16,8 @@ function networkUsage() {
             const lines = stdout.trim().split('\n');
             const networkUsage = {};
 
-            for (let i = 3; i < lines.length; i++) {
-                const parts = lines[i].trim().split(/\s+/);
-                if (parts.length === 3) {
-                    networkUsage[parts[0].toLowerCase()] = { received: parts[1], sent: parts[2] };
-                }
-            }
+            const parts = lines[3].trim().split(/\s+/);
+            networkUsage[parts[0].toLowerCase()] = { received: parts[1], sent: parts[2] };
 
             resolve(networkUsage);
         });
