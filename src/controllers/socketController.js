@@ -3,6 +3,7 @@ const { collectAndStoreDiskUsage } = require('./diskController');
 const { collectAndStoreNetworkUsage } = require('./networkController');
 const { collectAndStoreMemoryUsage } = require('./memoryController');
 const { client } = require('../helpers/eventStore');
+const { FORWARDS, START } = require('@eventstore/db-client');
 
 module.exports = (io, socket) => {
     console.log("Client Connected");
@@ -20,33 +21,50 @@ module.exports = (io, socket) => {
 
     const emitUsage = setInterval(async () => {
         try {
+            const cpu = []
+            const disk = []
+            const memory = []
+            const network = []
+
             // Collect system usage data
-            const cpuEvents = await client.readStream("cpu-usage-stream", {
-                direction: 'FORWARDS',
-                fromRevision: 'START',
+            const cpuEvents = client.readStream("cpu-usage-stream", {
+                direction: FORWARDS,
+                fromRevision: START,
                 maxCount: 50,
             })
+            for await (const resolvedEvent of cpuEvents) {
+                cpu.push(resolvedEvent.event?.data)
+            }
 
             const diskEvents = await client.readStream("disk-usage-stream", {
-                direction: 'FORWARDS',
-                fromRevision: 'START',
+                direction: FORWARDS,
+                fromRevision: START,
                 maxCount: 50,
             })
+            for await (const resolvedEvent of diskEvents) {
+                disk.push(resolvedEvent.event?.data)
+            }
 
             const memoryEvents = await client.readStream("memory-usage-stream", {
-                direction: 'FORWARDS',
-                fromRevision: 'START',
+                direction: FORWARDS,
+                fromRevision: START,
                 maxCount: 50,
             })
+            for await (const resolvedEvent of memoryEvents) {
+                memory.push(resolvedEvent.event?.data)
+            }
 
             const networkEvents = await client.readStream("network-usage-stream", {
-                direction: 'FORWARDS',
-                fromRevision: 'START',
+                direction: FORWARDS,
+                fromRevision: START,
                 maxCount: 50,
             })
+            for await (const resolvedEvent of networkEvents) {
+                network.push(resolvedEvent.event?.data)
+            }
 
             // Emit usage data to connected clients
-            socket.emit('systemUsage', { cpuEvents, diskEvents, memoryEvents, networkEvents });
+            socket.emit('systemUsage', { cpu, disk, memory, network });
         } catch (error) {
             console.error('Error collecting and emitting system usage data:', error);
         }
